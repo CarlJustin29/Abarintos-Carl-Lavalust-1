@@ -7,7 +7,6 @@ class StudentController extends Controller
     // Student Home
     public function index()
     {
-        // Allow access to the student profile
         $_SESSION['student_access'] = true;
 
         $data = [
@@ -18,12 +17,10 @@ class StudentController extends Controller
             'section' => 'BSIT 3-F3'
         ];
 
-        // Because the view is inside app/views/student/
         $this->call->view('student/student_home', $data);
     }
 
 
-    // Student Profile
     public function profile()
     {
         $student = [
@@ -45,7 +42,6 @@ class StudentController extends Controller
             'student' => $student
         ];
 
-        // Because the view is inside app/views/student/
         $this->call->view('student/student_profile', $data);
     }
 }
