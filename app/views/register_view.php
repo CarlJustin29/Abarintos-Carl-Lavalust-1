@@ -6,81 +6,47 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | Product Manager</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #f4f7fb 0%, #e8edf5 100%);
-            color: #1f2937;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-        }
-        .card {
-            background: #fff;
-            width: 100%;
-            max-width: 380px;
-            padding: 2.25rem 2rem;
-            border-radius: 14px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-        h1 { font-size: 1.4rem; margin-bottom: .35rem; }
-        p.subtitle { color: #6b7280; font-size: .88rem; margin-bottom: 1.5rem; }
-        label { display: block; font-size: .85rem; font-weight: 600; margin-bottom: .35rem; }
-        input {
-            width: 100%;
-            padding: .65rem .8rem;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: .95rem;
-            margin-bottom: 1rem;
-        }
-        input:focus { outline: none; border-color: #2563eb; }
-        button {
-            width: 100%;
-            padding: .7rem;
-            background: #2563eb;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: .95rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        button:hover { background: #1d4ed8; }
-        .msg.error { padding: .7rem .9rem; border-radius: 8px; font-size: .85rem; margin-bottom: 1rem; background: #fee2e2; color: #991b1b; }
-        .footer-link { text-align: center; margin-top: 1.25rem; font-size: .85rem; color: #6b7280; }
-        .footer-link a { color: #2563eb; text-decoration: none; font-weight: 600; }
-    </style>
+    <link rel="stylesheet" href="<?= base_url('public/assets/css/app.css'); ?>">
+    <title>Create account | LavaLust</title>
 </head>
 <body>
-<div class="card">
-    <h1>Create an account</h1>
-    <p class="subtitle">Register to manage products.</p>
+<main class="auth-shell">
+    <section class="auth-rail">
+        <div class="brand"><span class="brand-mark">/</span> LavaLust</div>
+        <div class="auth-rail-content">
+            <p class="kicker">Start with clarity</p>
+            <h1>Give your products a proper home.</h1>
+            <p class="auth-rail-copy">Set up your workspace once, then keep every product easy to find and easier to manage.</p>
+        </div>
+        <div class="rail-note">Built for a clear next step</div>
+    </section>
+    <section class="auth-panel">
+        <div class="auth-form">
+            <p class="kicker">Your workspace</p>
+            <h2>Create account</h2>
+            <p class="auth-subtitle">A few details and you are ready to begin.</p>
 
-    <?php if (!empty($error)): ?>
-        <div class="msg error"><?= htmlspecialchars($error); ?></div>
-    <?php endif; ?>
+            <?php if (!empty($error)): ?><div class="notice error"><?= htmlspecialchars($error); ?></div><?php endif; ?>
 
-    <form method="post" action="<?= base_url('register'); ?>">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" autocomplete="username" required autofocus>
+            <form method="post" action="<?= base_url('register'); ?>">
+                <div class="field">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" autocomplete="username" required autofocus>
+                </div>
+                <div class="field">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" name="email" autocomplete="email" required>
+                </div>
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" autocomplete="new-password" minlength="6" required>
+                </div>
+                <button class="button block" type="submit">Create workspace</button>
+            </form>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" autocomplete="email" required>
-
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" autocomplete="new-password" minlength="6" required>
-
-        <button type="submit">Register</button>
-    </form>
-
-    <div class="footer-link">
-        Already have an account? <a href="<?= base_url('login'); ?>">Log in</a>
-    </div>
-</div>
+            <footer>Already have an account? <a href="<?= base_url('login'); ?>">Sign in</a></footer>
+        </div>
+    </section>
+</main>
 </body>
 </html>
