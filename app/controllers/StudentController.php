@@ -25,7 +25,7 @@ class StudentController extends Controller
     {
         $student = [
             'student_id' => 'MCC2024-00111',
-            'name' => 'Carl Justin G. Abarintos',
+            'name' => 'Carl Justin. Abarintos',
             'course' => 'BS Information Technology',
             'year' => '3rd Year',
             'section' => 'BSIT 3-F3',
