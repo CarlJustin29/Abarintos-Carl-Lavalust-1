@@ -97,7 +97,7 @@ class ApiController extends Controller
         $tokens = $this->api->issue_tokens([
             'id'     => (int) $user['id'],
             'role'   => $user['role'],
-            'scopes' => ['read', 'write'],
+            'scopes' => $this->token_scopes($user['role'] ?? 'user'),
         ]);
 
         $this->api->respond([
@@ -227,12 +227,19 @@ class ApiController extends Controller
     private function require_admin(): array
     {
         $auth = $this->api->require_jwt();
+        $role = (string) ($auth['role'] ?? '');
+        $scopes = array_map('strval', $auth['scopes'] ?? []);
 
-        if (($auth['role'] ?? null) !== 'admin') {
+        if ($role !== 'admin' || !in_array('write', $scopes, true)) {
             $this->api->respond_error('Administrator access required.', 403);
         }
 
         return $auth;
+    }
+
+    private function token_scopes(string $role): array
+    {
+        return ($role === 'admin') ? ['read', 'write'] : ['read'];
     }
 
     /**

@@ -15,5 +15,22 @@ class UserModel extends Model {
     public function __construct()
     {
         parent::__construct();
+        $this->table = $this->resolve_user_table();
+    }
+
+    private function resolve_user_table(): string
+    {
+        foreach (['user', 'users'] as $table) {
+            try {
+                $columns = $this->db->raw('DESCRIBE `' . $table . '`')->fetchAll(PDO::FETCH_COLUMN);
+                if (in_array('password', $columns, true)) {
+                    return $table;
+                }
+            } catch (Throwable $e) {
+                // Keep falling back to the default table name.
+            }
+        }
+
+        return 'users';
     }
 }
