@@ -335,9 +335,16 @@ class Router
             // Strip namespace if fully qualified (e.g. App\Controllers\UserController → UserController)
             $controller = basename(str_replace('\\', '/', $controller));
 
-            $controller_file = APP_DIR . 'controllers/' . ucfirst($controller) . '.php';
+            $controller_file = null;
+            foreach ([APP_DIR . 'controllers/', APP_DIR . 'controller/'] as $directory) {
+                $candidate = $directory . ucfirst($controller) . '.php';
+                if (file_exists($candidate)) {
+                    $controller_file = $candidate;
+                    break;
+                }
+            }
 
-            if (!file_exists($controller_file)) {
+            if ($controller_file === null || !file_exists($controller_file)) {
                 throw new RuntimeException("Controller {$controller} does not exist.");
             }
 
@@ -367,9 +374,16 @@ class Router
                 $method = 'index';
             }
 
-            $controller_file = APP_DIR . 'controllers/' . ucfirst($controller) . '.php';
+            $controller_file = null;
+            foreach ([APP_DIR . 'controllers/', APP_DIR . 'controller/'] as $directory) {
+                $candidate = $directory . ucfirst($controller) . '.php';
+                if (file_exists($candidate)) {
+                    $controller_file = $candidate;
+                    break;
+                }
+            }
 
-            if (!file_exists($controller_file)) {
+            if ($controller_file === null || !file_exists($controller_file)) {
                 throw new RuntimeException("Controller {$controller} does not exist.");
             }
 
