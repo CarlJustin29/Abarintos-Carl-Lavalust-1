@@ -16,11 +16,6 @@ class Create_users_table {
             return;
         }
 
-        if ($this->_lava->dbforge->table_exists('user')) {
-            $this->_lava->dbforge->rename_table('user', 'users');
-            return;
-        }
-
         $this->_lava->dbforge
             ->add_field([
                 'id' => [
